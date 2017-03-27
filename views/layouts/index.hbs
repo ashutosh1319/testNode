@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<title>Our Angular App</title>
+<link rel="stylesheet" href="../stylesheets/bootstrap.css" />    
+ 
+<link rel="stylesheet" href="../stylesheets/style.css" />    
+<script src="../javascripts/jquery.min.js"></script>
+    
+<script src="./javascripts/ustom.js"></script>    
+</head>   
+
+<body  ng-app="home_app"  ng-controller="home_ctrl">
+   
+<div class="container" >
+  <div class="row">
+    <div class="span12">
+      <div class="head">
+        <div class="container">
+            <div class="col-md-12">
+                <div class="span6">
+                    <h1 class="muted">Manage Users</h1>
+                </div>
+
+                <div class="span4 offset2" style="margin-top:15px;">
+                   
+                </div>
+            </div>
+        </div>
+
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="container">
+                    <ul class="nav">
+                        <li>
+                            <a href="#/">Home</a>
+                        </li>
+
+                        <li>
+                            <a href="#/about">About</a>
+                        </li>
+
+                        <li>
+                            <a href="#/fsldjkfjslkd">Features</a>
+                        </li>
+
+                        <li>
+                            <a href="#/dfsdf">Blog</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>    
+<div   class="container">
+    
+    <script type="text/javascript">
+
+    </script>  
+<div class="col-md-12">    
+<div class="col-md-2"><button class="btn pull-left btn-success" ng-click="frmToggle()" type="button">Add Records</button></div>
+<div class="col-md-2"><a href='/get-data'><button class="btn pull-left btn-success" type="submit">Show Records</button></a></div>
+<div class="col-md-4"><input type="text" name="search" id="password" class="form-control input-sm" ng-model="search" placeholder="Search">     </div>
+    <div class="col-md-4">{{ msg }}</div></div>
+
+    
+    
+    <div class="container " >
+        <div class="row centered-form">
+          <div class="col-md-7 col-xs-12">
+                    
+<table class="table table-stripped table-responsive">
+<tr><th>S.No</th><th>Name</th><th>Phone</th><th>City</th><th>Edit</th><th>Remove</th></tr>        
+{{# each items }}
+
+<tr> 
+    <td>{{ this._id }}</td>
+    <td>{{ this.First_name }}</td>
+    <td>{{ this.Last_name }}</td>
+    <td>{{ this.Address }}</td>
+    <td><a id="edit" class="btn btn-success" href='/update/{{this._id}}'>Edit me</a></td>
+    <td><form method='post' action='/delete'><input class="btn btn-danger" type="submit" value="Delete"><input type='hidden' value='{{this._id}}' name='id' /></form></td>
+</tr>   
+    
+{{/each}}
+</table>   
+
+            </div>
+            <div class="col-xs-12 col-md-5 ol-md-push-1">
+            <div class="col-md-12 form_cont_update">
+            {{# if success_update_fetch }}
+        	<div class="panel panel-default">
+        		<div class="panel-heading">
+                    <h3 class="panel-title">Edit it up <b>Currently editing&nbsp;</b><span class="badge"> {{ frm.First_name}}</span></h3>
+			 			</div>
+			 			<div class="panel-body">
+			    		<form role="form" method="post" action="/update_records/">
+			    			<div class="row">
+			    				<div class="col-xs-6 col-sm-6 col-md-6">
+			    					<div class="form-group">
+			                <input type="hidden" name="idd" id="idd" class="form-control input-sm"  value="{{ frm._id }}">
+                                        <input type="text" name="First_name1" id="first_name" class="form-control input-sm"  placeholder="First Name" value="{{ frm.First_name }}">
+			    					</div>
+			    				</div>
+			    				<div class="col-xs-6 col-sm-6 col-md-6">
+			    					<div class="form-group">
+			    						<input type="text" name="Last_name1" id="Last_name" class="form-control input-sm" placeholder="Phone"  value="{{ frm.Last_name }}">
+			    					</div>
+			    				</div>
+			    			</div>
+
+			    			<div class="form-group">
+			    				<input type="text" name="Address1" id="Address1" class="form-control input-sm" placeholder="Address"  value="{{ frm.Address }}">
+			    			</div>
+
+			    		
+			    			
+                            <button value="Update" class="btn btn-success">Update</button>
+                            <button ng-click="cancel_evnt()" value="Cancel" class="btn btn-info ">Cancel</button>
+                            <button ng-click="saveData(frm)" value="Add as New Record" class="btn btn-danger ">Add as New Record</button>
+			    		
+			    		</form>
+			    	</div>
+	    		</div>
+                {{/if}}
+    		</div>
+            
+            <div class="col-md-12 form_cont ">
+        	<div class="panel panel-default">
+        		<div class="panel-heading">
+			    		<h3 class="panel-title">Please fill up <small>It's free!</small></h3>
+			 			</div>
+                        <div class="panel-body">
+			    		<div class="error message" ></div>
+                        <form role="form" method='post' action='/insert'>
+			    			<div class="row">
+			    				<div class="col-xs-6 col-sm-6 col-md-6">
+			    					<div class="form-group">
+			                <input type="text" name="first_name" id="first_name" class="form-control input-sm" ng-model="frm.name" placeholder="First Name" value="{{ frm.name }}">
+			    					</div>
+			    				</div>
+			    				<div class="col-xs-6 col-sm-6 col-md-6">
+			    					<div class="form-group">
+			    						<input type="text" name="last_name" id="last_name" ng-model="frm.phone" class="form-control input-sm" placeholder="Phone"  value="{{ frm.phone }}">
+			    					</div>
+			    				</div>
+			    			</div>
+
+			    			<div class="form-group">
+			    				<input type="text" name="city" id="city" class="form-control input-sm" ng-model="frm.city" placeholder="Address"  value="{{ frm.city }}">
+			    			</div>
+
+			    		
+			    			
+			    			<input type="submit" value="Add New Record" class="btn btn-info btn-block">
+			    		
+			    		</form>
+			    	</div>
+	    		</div>
+    		</div>
+            </div>
+            
+          
+    	</div>
+    </div>
+    
+    
+    
+</div>
+  
+
+   
+    
+</body>
+</html> 
